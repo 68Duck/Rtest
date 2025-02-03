@@ -3,7 +3,7 @@ library(rnaturalearth)
 
 cloropleth <- function(data, fill, legend_title) {
 graph <- ggplot() + geom_sf(data=data, aes(fill = fill)) +
-    theme_void() + scale_fill_viridis_c(option="default")
+    theme_void() + scale_fill_viridis_c(option="viridis")
 graph$labels$fill <- legend_title
 return(graph)
 }

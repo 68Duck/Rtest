@@ -18,8 +18,6 @@ addBars <- function(graph, bars, x, y, measure, legend_title, scale=0.5, width=2
     return(graph)
 }
 
-# test2 <- ne_countries(scale=110, type="countries", continent="africa")
-
 
 map <- addBars(map, test, test$label_x, test$label_y, test$name_len, "Name Length")
 print(map)
