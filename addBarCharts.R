@@ -7,14 +7,14 @@ source("./Rtest\\cloropleth.R")
 df <- ne_countries(scale = 110, type = "countries", continent = "africa")
 map <- cloropleth(df, df$pop_rank, "Population rank")
 
-add_bar_charts <- function(map, df) {
+add_bar_charts <- function(map, df, width, height) {
   for (i in 1:nrow(df)) {
-    map <- build_layer(map, df[i, , drop = FALSE])
+    map <- build_layer(map, df[i, , drop = FALSE], width, height)
   }
   return(map)
 }
 
-build_layer <- function(map, df) {
+build_layer <- function(map, df, width, height) {
   data <- data.frame(
     Category = c("A", "B", "C", "D"),
     Value = c(3, 7, 2, 5)
@@ -27,12 +27,10 @@ build_layer <- function(map, df) {
   
   bar_grob <- ggplotGrob(bar_chart)
   
-  width <- 5
-  height <- 5
   map <- map + annotation_custom(grob = bar_grob, xmin = df$label_x - width / 2, xmax = df$label_x + width / 2, ymin = df$label_y - height / 2, ymax = df$label_y + height / 2)
   
   return(map)
 }
 
-map <- add_bar_charts(map, df)
+map <- add_bar_charts(map, df, 5, 5)
 print(map)

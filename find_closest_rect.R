@@ -5,7 +5,6 @@ library(dplyr)
 library(ggplot2)
 source("./Rtest\\cloropleth.R")
 
-# Load African countries data
 world <- ne_countries(returnclass = "sf", scale = 10, continent = "africa")
 
 
@@ -100,23 +99,11 @@ find_closest_rects <- function(data, small_area, width, height) {
       rectangles_centroids <- rectangles_centroids[-closest_rectangle_index]
   }
 
-  # m3 <- ggplot() +
-  #     geom_sf(data = world_valid, fill = "white", color = "black") +  # Plot the world map
-  #     geom_sf(data = valid_rectangles_sf, fill = NA, color = "red", size = 1) +  # Plot the rectangles
-  #     geom_sf(data = small_countries, fill = "yellow", color = "black", size = 2) +  # Plot Kenya
-  #     geom_sf(data = closest_rectangles_df$geometry, fill = "green", color = "black", size = 2) +  # Plot the closest rectangle
-  #     geom_segment(data = closest_rectangles_df, aes(x = country_point.X, y = country_point.Y, xend = rectangle_point.X, yend = rectangle_point.Y), 
-  #               color = "blue", size = 1) +
-  #     coord_sf() + 
-  #     theme_minimal() 
-  # print(m3)
-
   return (closest_rectangles_df)
 } 
 
 modify_label_positions <- function(data, area, width, height) {
   df <- find_closest_rects(data, area, width, height)
-  print(colnames(data))
   
   new_data <- data %>%
     left_join(df, by = c("name" = "country_name")) %>%
@@ -127,50 +114,8 @@ modify_label_positions <- function(data, area, width, height) {
   return(new_data)
 }
 
+add_lines_to_labels <- function(data, map) {
 
-add_bar_charts <- function(map, df, width, height) {
-  for (i in 1:nrow(df)) {
-    map <- build_layer(map, df[i, , drop = FALSE], width, height)
-  }
-  return(map)
+  map <- map + geom_segment(data = data, aes(x = country_point.X, y = country_point.Y, xend = rectangle_point.X, yend = rectangle_point.Y), 
+              color = "blue", size = 1)
 }
-
-build_layer <- function(map, df, width, height) {
-  data <- data.frame(
-    Category = c("A", "B", "C", "D"),
-    Value = c(3, 7, 2, 5)
-  )
-  
-  bar_chart <- ggplot(data, aes(x = Category, y = Value)) +
-    geom_bar(stat = "identity", fill = "lightblue") +
-    theme_minimal() +
-    theme(axis.title = element_blank(), axis.text = element_blank(), axis.ticks = element_blank())
-  
-  bar_grob <- ggplotGrob(bar_chart)
-  
-  
-  map <- map + annotation_custom(grob = bar_grob, xmin = df$label_x - width / 2, xmax = df$label_x + width / 2, ymin = df$label_y - height / 2, ymax = df$label_y + height / 2)
-  
-  return(map)
-}
-
-width <- 7
-height <- 7
-
-data <- modify_label_positions(world, 20, width, height)
-print(data)
-
-
-
-map <- ggplot() +
-    geom_sf(data = data, fill = "white", color = "black") +  # Plot the world map
-    geom_point(data=data, aes(x = label_x, y = label_y, size = 3)) + 
-    geom_segment(data = data, aes(x = country_point.X, y = country_point.Y, xend = rectangle_point.X, yend = rectangle_point.Y), 
-              color = "blue", size = 1) +
-    coord_sf() + 
-    theme_minimal() 
-
-map <- add_bar_charts(map, data, width, height)
-  
-print(map)
-  # print(m3)
