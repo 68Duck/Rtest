@@ -28,7 +28,7 @@ add_stars <- function(map, df, width, height) {
 build_layer <- function(map, df, data, width, height) {
   
   points <- ggplot(data, aes(x = x, y = y, color = colours, fill = colours)) +
-    geom_star(stat = "identity", size=3) +
+    geom_star(stat = "identity", size=width * 3 / 10) +
     scale_fill_manual(values = c("yellow" = "yellow", "grey" = "grey")) +
     scale_color_manual(values = c("yellow" = "yellow", "grey" = "grey")) +
     theme_minimal() +
