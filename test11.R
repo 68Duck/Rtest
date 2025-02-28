@@ -139,18 +139,16 @@ for (i in 1:nrow(small_countries)) {
 
     valid_rectangles_sf <- valid_rectangles_sf[-closest_rectangle_index]
     rectangles_centroids <- rectangles_centroids[-closest_rectangle_index]
-    # print(closest_rectangle)
 }
 
 print(closest_rectangles_df)
-# print(country_bboxes[country_bboxes$area < 5, ]$name)
 
 
 m3 <- ggplot() +
     geom_sf(data = world_valid, fill = "white", color = "black") +  # Plot the world map
     geom_sf(data = valid_rectangles_sf, fill = NA, color = "red", size = 1) +  # Plot the rectangles
     geom_sf(data = country_bboxes[country_bboxes$area < 5, ], fill = "yellow", color = "black", size = 2) +  # Plot Kenya
-    geom_sf(data = closest_rectangles_df$geometry, fill = "green", color = "black", size = 2) +  # Plot the closest rectangle
+    geom_sf(data = closest_rectangles_df$geometry, fill = "green", color = "black", size = 2) + 
     geom_segment(data = closest_rectangles_df, aes(x = country_point.X, y = country_point.Y, xend = rectangle_point.X, yend = rectangle_point.Y), 
                color = "blue", size = 1) +
     coord_sf() +  # Use the correct coordinate system for the map
