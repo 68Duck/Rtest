@@ -16,8 +16,8 @@ add_bar_charts <- function(map, df, width, height) {
 
 build_layer <- function(map, df, width, height) {
   data <- data.frame(
-    Category = c("A", "B", "C", "D"),
-    Value = c(3, 7, 2, 5)
+    Category = c("name len", "long len", "abbrev len"),
+    Value = c(df$name_len, df$long_len, df$abbrev_len)
   )
   
   bar_chart <- ggplot(data, aes(x = Category, y = Value)) +
