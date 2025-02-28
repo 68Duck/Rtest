@@ -13,7 +13,8 @@ addPie <- function(graph, data, x, y, measures, legend_title) {
          data = data, cols=measures) + 
         coord_sf()
     graph$labels$fill <- legend_title
-    return (graph)
+    # return (graph)
+    graph
 }
 
 map <- addPie(map, test, "label_x", "label_y", c("name_len", "pop_rank"), "Name vs Pop")
