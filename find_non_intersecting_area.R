@@ -18,7 +18,7 @@ country_bboxes <- world %>%
   select(name, xmin, ymin, xmax, ymax)
 
 
-country_bboxes$area <-  (country_bboxes$xmax - country_bboxes$xmin) * (country_bboxes$ymax - country_bboxes$ymin) 
+country_bboxes$area <- (country_bboxes$xmax - country_bboxes$xmin) * (country_bboxes$ymax - country_bboxes$ymin) 
 
 library(ggplot2)
 
