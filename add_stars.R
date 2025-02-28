@@ -5,10 +5,10 @@ library(ggnewscale)
 library(ggstar)
 source("./Rtest\\cloropleth.R")
 
-df <- ne_countries(scale = large, type = "countries", continent = "south america")
+df <- ne_countries(scale = "large", type = "countries", continent = "south america")
 map <- cloropleth(df, df$pop_rank, "Population rank")
 
-add_stars <- function(map, df) {
+add_stars <- function(map, df, width, height) {
 
   values <- sample(1:5, nrow(df), replace=T)
   for (i in 1:nrow(df)) {
@@ -19,13 +19,13 @@ add_stars <- function(map, df) {
          rep("grey", each = (5 - values[i])))
     )
 
-    map <- build_layer(map, df[i, , drop = FALSE], data)
+    map <- build_layer(map, df[i, , drop = FALSE], data, width, height)
   }
     
   return(map)
 }
 
-build_layer <- function(map, df, data) {
+build_layer <- function(map, df, data, width, height) {
   
   points <- ggplot(data, aes(x = x, y = y, color = colours, fill = colours)) +
     geom_star(stat = "identity", size=3) +
@@ -40,12 +40,13 @@ build_layer <- function(map, df, data) {
           panel.grid.minor=element_blank(),plot.background=element_blank())
   
   point_grob <- ggplotGrob(points)
-  
-  width <- 10
-  height <- 8
+
   map <- map + annotation_custom(grob = point_grob, xmin = df$label_x - width / 2, xmax = df$label_x + width / 2, ymin = df$label_y - height / 2, ymax = df$label_y + height / 2)
   return(map)
 }
+  
+width <- 10
+height <- 8
 
-map <- add_stars(map, df)
+map <- add_stars(map, df, width, height)
 print(map)
