@@ -3,12 +3,13 @@ library(rnaturalearth)
 library(sf)
 library(ggnewscale)
 library(ggstar)
-source("./Rtest\\cloropleth.R")
+source("C:\\Users\\Joshu\\Documents\\R\\Rtest\\cloropleth.R")
 
-df <- ne_countries(scale = "large", type = "countries", continent = "south america")
-map <- cloropleth(df, df$pop_rank, "Population rank")
 
-add_stars <- function(map, df, width, height) {
+# df <- ne_countries(scale = "large", type = "countries", continent = "south america")
+# map <- cloropleth(df, df$pop_rank, "Population rank")
+
+add_stars <- function(map, df, width, height, star_size) {
 
   values <- sample(1:5, nrow(df), replace=T)
   for (i in 1:nrow(df)) {
@@ -19,16 +20,16 @@ add_stars <- function(map, df, width, height) {
          rep("grey", each = (5 - values[i])))
     )
 
-    map <- build_layer(map, df[i, , drop = FALSE], data, width, height)
+    map <- build_star_layer(map, df[i, , drop = FALSE], data, width, height, star_size)
   }
     
   return(map)
 }
 
-build_layer <- function(map, df, data, width, height) {
+build_star_layer <- function(map, df, data, width, height, star_size) {
   
   points <- ggplot(data, aes(x = x, y = y, color = colours, fill = colours)) +
-    geom_star(stat = "identity", size=width * 3 / 10) +
+    geom_star(stat = "identity", size=star_size) +
     scale_fill_manual(values = c("yellow" = "yellow", "grey" = "grey")) +
     scale_color_manual(values = c("yellow" = "yellow", "grey" = "grey")) +
     theme_minimal() +
@@ -45,8 +46,9 @@ build_layer <- function(map, df, data, width, height) {
   return(map)
 }
   
-width <- 10
-height <- 8
+# width <- 10
+# height <- 8
+# star_size <- 3
 
-map <- add_stars(map, df, width, height)
-print(map)
+# map <- add_stars(map, df, width, height, star_size)
+# print(map)

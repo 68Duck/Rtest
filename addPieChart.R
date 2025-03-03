@@ -1,7 +1,8 @@
 library(ggplot2)
 library(scatterpie)
 library(ggnewscale)
-source("./Rtest\\cloropleth.R")
+source("C:\\Users\\Joshu\\Documents\\R\\Rtest\\cloropleth.R")
+
 
 test <- ne_countries(scale=110, type="countries", continent="africa")
 map <- cloropleth(test, test$pop_rank, "Population rank")
@@ -16,6 +17,6 @@ addPie <- function(graph, data, x, y, measures, legend_title, pie_scale) {
     graph
 }
 
-map <- addPie(map, test, "label_x", "label_y", c("name_len", "pop_rank"), "Name vs Pop", 1)
-print(map)
+# map <- addPie(map, test, "label_x", "label_y", c("name_len", "pop_rank"), "Name vs Pop", 1)
+# print(map)
 

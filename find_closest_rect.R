@@ -3,7 +3,8 @@ library(rnaturalearthhires)
 library(sf)
 library(dplyr)
 library(ggplot2)
-source("./Rtest\\cloropleth.R")
+source("C:\\Users\\Joshu\\Documents\\R\\Rtest\\cloropleth.R")
+
 
 world <- ne_countries(returnclass = "sf", scale = 10, continent = "africa")
 

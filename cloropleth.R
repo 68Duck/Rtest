@@ -13,6 +13,4 @@ return(graph)
 
 
 test <- ne_countries(scale=110, type="countries", continent="africa")
-# print(cloropleth(test, test$name_len, "Name Length"))
-# print(test)
-print(cloropleth(test, test$pop_rank, "Population rank"))
+# print(cloropleth(test, test$pop_rank, "Population rank"))

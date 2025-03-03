@@ -2,7 +2,8 @@ library(ggplot2)
 library(rnaturalearth)
 library(sf)
 library(ggnewscale)
-source("./Rtest\\cloropleth.R")
+source("C:\\Users\\Joshu\\Documents\\R\\Rtest\\cloropleth.R")
+
 
 df <- ne_countries(scale = 110, type = "countries", continent = "africa")
 map <- cloropleth(df, df$pop_rank, "Population rank")
