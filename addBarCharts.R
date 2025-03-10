@@ -22,7 +22,7 @@ build_layer <- function(map, df, width, height) {
   )
   
   bar_chart <- ggplot(data, aes(x = Category, y = Value)) +
-    geom_bar(stat = "identity", fill = "lightblue") +
+    geom_bar(stat = "identity", fill = "pink") +
     theme_minimal() +
     theme(axis.title = element_blank(), axis.text = element_blank(), axis.ticks = element_blank())
   
@@ -33,5 +33,5 @@ build_layer <- function(map, df, width, height) {
   return(map)
 }
 
-map <- add_bar_charts(map, df, 5, 5)
-print(map)
+# map <- add_bar_charts(map, df, 5, 5)
+# print(map)

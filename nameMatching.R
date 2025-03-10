@@ -1,12 +1,14 @@
-data <- read.csv("countryNames.csv", header = FALSE)
 library(stringdist)
 library(purrr)
 
+
 getCountryNumber <- function(country) {
+    data <- read.csv("countryNames.csv", header = FALSE)
     for (i in 1:nrow(data)) {
         row <- data[i, ]
         number <- match(tolower(country), row)
         if (!is.na(number)) {
+            print(i)
             return(i)
         }
     }
@@ -14,6 +16,7 @@ getCountryNumber <- function(country) {
 }
 
 getCountryNumberWithLevenshteinDistance <- function(country, x) {
+    data <- read.csv("countryNames.csv", header = FALSE)
     for (i in 1:nrow(data)) {
         row <- data[i, ]
         for (j in 1:length(row)) {
@@ -29,6 +32,14 @@ getCountryNumberWithLevenshteinDistance <- function(country, x) {
         }
     }
     return(-1)
+}
+
+getCountryNumberWithLevenshteinDistance2 <- function (country, x) {
+    number <- getCountryNumber(country)
+    if (number == -1) {
+        number <- getCountryNumberWithLevenshteinDistance(country, x)
+    }
+    number
 }
 
 levenshteinDistanceLesserThan <- function(str1, str2, x) {

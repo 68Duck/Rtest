@@ -18,14 +18,13 @@ ui <- fluidPage(
                   choices = c("Bar Chart", "Pie Chart", "Star Plot")),
       numericInput("small_country_size_input", 
                    label = "Size of a country to draw a line towards", 
-                   value = 10, 
+                   value = 1, 
                    min = 1, 
                    max = 25, 
                    step = 1)  
     ),
     mainPanel(
-      plotOutput("ggplot"),
-      style = "width: 70%;"
+      plotOutput("ggplot")
     )
   )
 )
@@ -33,9 +32,9 @@ ui <- fluidPage(
 # # Define server logic
 server <- function(input, output) {
   
-  width <- 8
-  height <- 8
-  data <- ne_countries(returnclass = "sf", scale = 10, continent = "africa")
+  width <- 1
+  height <- 1
+  data <- ne_countries(returnclass = "sf", scale = 110, continent = "europe")
   output$ggplot <- renderPlot({
     small_country_area <- input$small_country_size_input
     data <- modify_label_positions(data, small_country_area, width, height)

@@ -3,7 +3,7 @@ source("./Rtest\\cloropleth.R")
 source("./Rtest\\add_stars.R")
 
 
-data <- ne_countries(returnclass = "sf", scale = 10, continent = "africa")
+data <- ne_countries(returnclass = "sf", scale = 110, continent = "europe")
 
 width <- 8
 height <- 6

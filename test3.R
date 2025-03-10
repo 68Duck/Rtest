@@ -11,4 +11,4 @@ print(test[1:97])
 test3 <- ggplot(test, aes(fill = name_len)) + geom_sf() +
      theme_void()
 print(test3)
-print(test$geometry[1])
+# print(test$geometry[1])
