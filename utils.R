@@ -8,16 +8,13 @@ merge_data <- function(country_data, auxillary_data, country_name, auxillary_cou
 }
     
 merge_data_with_country_matching <- function(country_data, auxillary_data, country_name, auxillary_country_name) {
-    print(country_data$name)
-    country_data$country_number <- apply(country_data, 1, function(row) getCountryNumberWithLevenshteinDistance(row[country_name], 3))
-    auxillary_data$country_number <- apply(auxillary_data, 1, function(row) getCountryNumberWithLevenshteinDistance(row[auxillary_country_name], 3))
-    # country_data$country_number <- apply(country_data, 1, function(row) getCountryNumber(row[country_name]))
-    # auxillary_data$country_number <- apply(auxillary_data, 1, function(row) getCountryNumber(row[auxillary_country_name]))
-    print(country_data$country_number)
-    print(auxillary_data$country_number)
-    # auxillary_data <- auxillary_data %>% mutate(country_number = sapply(auxillary_country_name, getCountryNumber))
-    # print(country_data$country_number)
-    data <- merge(country_data, auxillary_data, by = "country_number")
+    country_data$country_number <- apply(country_data, 1, function(row) getCountryNumber3(row[country_name], 3))
+    auxillary_data$country_number <- apply(auxillary_data, 1, function(row) getCountryNumber3(row[auxillary_country_name], 3))
+    # country_data$country_number <- apply(country_data, 1, function(row) getCountryNumberWithLevenshteinDistance2(row[country_name], 3))
+    # auxillary_data$country_number <- apply(auxillary_data, 1, function(row) getCountryNumberWithLevenshteinDistance2(row[auxillary_country_name], 3))
+
+    data <- merge(country_data, auxillary_data, by = "country_number", all.x = TRUE)
+    # print(data)
     data <- st_as_sf(data)
     data
 }
